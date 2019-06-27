@@ -20,30 +20,16 @@ public class App {
 
     public static void main(String[] args) throws IOException {
 
-        DB db = new DB();
-        Connection con = null;
+        Province p = provDao.findById("16");
+        System.out.println(p);
+        
+        List<City> cities = cityDao.findByPid("16");
+        // cities.forEach((City c) -> {
+        //     System.out.println(c);
+        // });
 
-        try {
-            con = DB.getCon();
+        p.setCities(cities);
+        System.out.println(p.getCities());
 
-            Province p = provDao.findById("16");
-            System.out.println(p);
-            
-            List<City> cities = cityDao.findByPid("16");
-            // cities.forEach((City c) -> {
-            //     System.out.println(c);
-            // });
-
-            p.setCities(cities);
-            System.out.println(p.getCities());
-
-        } catch(Exception e) {
-		} finally {
-			try {
-				db.closeCon(con);
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
-		}
     }
 }
